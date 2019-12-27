@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      let imgFn=(function(){
+          let imgNode = document.createElement('img')
+          document.body.appendChild(imgNode)
+          return {
+              setSrc:function(src){
+                  imgNode.src = src
+              }
+          }
+      }) ()
+      
+      let proxyImg = (function(){
+          let img = new Image()
+          img.onload=function(){
+              imgFn.setSrc(this.src)
+          }
+          return {
+              setSrc:function(src){
+                  imgFn.setSrc('./loading.gif')
+                  setTimeout(()=>{
+                      img.src = src
+                  },1000)
+                  
+              }
+          }
+
+      })()
+      proxyImg.setSrc('./flower.png')
+    </script>
+</body>
+</html>

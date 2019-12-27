@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //订阅者模式
+      class Event{
+          constructor(){
+              this.callbacks={}
+          }
+          //绑定
+          $on(name,fn){
+            (this.callbacks[name] || (this.callbacks[name]=[])).push(fn)
+          }
+          //触发
+          $emit(name,args){
+             let cbs = this.callbacks[name]
+             if(cbs){
+                 cbs.forEach(element => {
+                    element.call(this,args)
+                 });
+             }
+          }
+          $off(name){
+              this.callbacks[name] =null
+          }
+      }    
+        let event = new Event()
+        event.$on('event1',name=>{
+            console.log('事件1第一次',name)
+        })
+        event.$emit('event1','开课吧')
+    </script>
+</body>
+</html>

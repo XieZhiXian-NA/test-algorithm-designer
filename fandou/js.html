@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     #content{
+         height: 10000px;
+     }
+     img{
+         height: 400px;
+         /* img:默认是行内元素 */
+         display: block;
+     }
+    </style>
+</head>
+<body>
+    <div id="content">
+     <img data-src="./dva.png"/>
+     <img data-src="./redux.png"/>
+     <img data-src="./DOM.webp"/>
+     <img data-src="./dva.png"/>
+     <img data-src="./redux.png"/>
+     <img data-src="./DOM.webp"/>
+     <img data-src="./dva.png"/>
+     <img data-src="./redux.png"/>
+     <img data-src="./DOM.webp"/>
+     <img data-src="./dva.png"/>
+     <img data-src="./redux.png"/>
+     <img data-src="./DOM.webp"/>
+    </div>
+    <!-- <div>
+        防抖：最后统一发请求，滚动
+    </div> -->
+    <script>
+    let imgs = document.querySelectorAll('img')
+    //.window.innerHeight属于BOM（浏览器对象模型），而document.documentElement.clientHeight则属于文档对象模型
+    //2.window.innerHeight获取的高度包含横向滚动条，而document.documentElement.clientHeight不包含横向滚动条
+    
+    let viewHeight = window.innerHeight || window.documentElement.clientHeight
+    function loadImg(){
+         for(let i=0;i<imgs.length;i++){
+            // console.log(imgs[i].getBoundingClientRect())
+               let dis = viewHeight - imgs[i].getBoundingClientRect().top
+               if(dis>0){
+                   imgs[i].src= imgs[i].getAttribute('data-src')
+               }
+    }
+    }
+    loadImg()
+    //防抖函数是从操作执行结束开始，等待一段时间,这段时间内没有在次操作才去执行该函数
+    let debounce =(fn,wait=500)=>{
+       let timer
+       return function(...args){
+           if(timer){
+               clearTimeout(timer)
+           } 
+           timer = setTimeout(()=>{
+               fn.apply(this,args)
+           },wait)
+       }
+    }
+
+    //节流函数是固定时间段 等待5s就执行一次,
+    let throttle = (fn,wait=500)=>{
+        let lastTime= 0
+        return function(...args){
+            let now = new Date()
+            if(now-lastTime>wait){
+                fn.apply(this,args)
+                lastTime = now
+            }
+        }
+    }  
+    //根据滚动，生成图片的懒加载
+      window.addEventListener('scroll',throttle(()=>{
+        loadImg()
+      }))
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 链表查找元素的麻烦 -->
+
+<script>
+    
+  class Node{
+      constructor(element){
+          this.element = element
+          this.next =null
+      }
+  }    
+
+  class LinkList{
+      constructor(){
+          this.head =null
+          this.length =0
+      }
+      append(element){
+      let node = new Node(element)
+      let current = null
+      if(this.head==null){
+          this.head = node
+      }else{
+          let current = this.head
+          while(current.next){
+              current = current.next
+          }
+          current.next = node
+          this.length += 1
+      }
+  }
+      insert(position,element){
+          if(position>=0 && position<this.length){
+              let node =new Node(element)
+              let current = this.head
+              let previous =  null
+              let index = 0
+              if(position == 0){
+                  this.head = node
+              }else{
+                  while(index++ < position){
+                      previous = current
+                      current = current.next
+                  }
+                  node.next = current
+                   previous.next = node 
+              }
+              this.length++ 
+          }
+      }
+  }
+  
+</script>
+
+</body>
+</html>

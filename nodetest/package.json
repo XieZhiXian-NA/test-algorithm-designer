@@ -1,0 +1,17 @@
+{
+  "name": "nodetest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hello.test.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^24.9.0",
+    "koa": "^2.11.0",
+    "supertest": "^4.0.2"
+  }
+}

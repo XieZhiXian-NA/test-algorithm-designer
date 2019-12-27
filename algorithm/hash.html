@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //   新增、查找、删除元素 o(1)
+    // 无序, 空间复杂度提高，数据冗余，两个key的hash值一样 会产生碰撞 就要扩容
+
+      class HashTable{
+          constructor(){
+              this.table=[]
+          }
+          //hash根据key计算出hash值，再映射成地址，将value值放到相应的地方
+          static hash(key){
+              let h = 0
+              for(let code of key){
+                // charCodeAt() 方法可返回指定位置的字符的 Unicode 编码
+                  h +=code.charCodeAt()
+              }
+              return h%37  //计算的结果会分布在0-37之间
+          }
+          get(key){
+            return this.table[HashTable.hash(key)]
+          }
+          put(key,val){
+              let position = HashTable.hash(key)
+              this.table[position] =val
+          }
+          remove(){}
+      }
+       const hash = new HashTable()
+       hash.put('Surmon','sumon.me@emial.com')
+       console.log(hash.get('Surmon'))
+        
+    </script>
+</body>
+</html>
